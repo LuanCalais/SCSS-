@@ -1,0 +1,88 @@
+@use '_base'; /* import base */
+
+@use 'sass:math'; /* import math from sass */
+
+// function || mixin
+@mixin theme($theme: rgb(76, 117, 163)){
+    background-color: $theme;
+    box-shadow: 0 0 1px rgba($theme, .25);
+    border-radius: 4px;
+    color: #fff;
+}
+
+// Operators
+.container{
+    display: flex;
+}
+
+article[role="main"]{
+    width: math.div(600px, 960px) * 100%; //look the result on output.css
+}
+
+aside[role="complementary"]{
+    width: math.div(300px, 960px) * 100%;
+    margin-left: auto;
+}
+
+nav{
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li{
+        display: inline-block;
+
+        .info{
+            @include theme;
+        }
+
+        .alert{
+            @include theme($theme: rgb(199, 61, 61));
+        }
+
+        .success{
+            @include theme($theme: rgb(49, 146, 49));
+        }
+
+    }
+
+    a{
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+
+}
+
+// Extends
+%message-shared{
+    border: 1px solid #ccc;
+    padding: 10px;
+    color: #333;
+}
+
+%equal-heights{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.message{
+    @extend %message-shared;
+}
+
+.success{
+    @extend %message-shared;
+    border-color: rgb(69, 163, 74);
+}
+
+.error{
+    @extend %message-shared;
+    border-color: rgb(190, 56, 56);
+}
+
+.warning{
+    @extend %message-shared;
+    border-color: rgb(214, 214, 78);
+}
